@@ -92,7 +92,32 @@
 // 	printPoly(poly,startc,finishc);
 
 // }
+// void polyAdd(Polynomial poly[], int starta, int finisha, int startb, int finishb, int *startc, int *finishc) {
+//     *startc = finisha;  // Update startc to the end of the first polynomial
+//     *finishc = *startc;
 
+//     for (int i = starta; i < finisha; i++) {
+//         for (int j = startb; j < finishb; j++) {
+//             if (poly[i].exp == poly[j].exp) {
+//                 // Create a new term for the result polynomial
+//                 poly[*finishc].exp = poly[i].exp;
+//                 poly[*finishc].coeff = poly[i].coeff + poly[j].coeff;
+//                 (*finishc)++;
+//             }
+//         }
+//     }
+// }
+// void polyAdd(Polynomial poly[], int starta, int finisha, int startb, int finishb, int startc, int finishc) {
+//     for (int i = starta; i < finisha; i++) {
+//         for (int j = startb; j < finishb; j++) {
+//             if (poly[i].exp == poly[j].exp) {
+//                 int sum = poly[i].coeff + poly[j].coeff;
+//                 poly[i].exp = poly[i].exp;  // Corrected index and assignment
+//                 poly[i].coeff = sum;        // Corrected index and assignment
+//             }
+//         }
+//     }
+// }
 
 #include <stdio.h>
 #include <math.h>
@@ -120,17 +145,54 @@ void printPoly(Polynomial poly[], int start, int finish) {
     }
 }
 
-void polyAdd(Polynomial poly[], int starta, int finisha, int startb, int finishb, int startc, int finishc) {
-    for (int i = starta; i < finisha; i++) {
-        for (int j = startb; j < finishb; j++) {
-            if (poly[i].exp == poly[j].exp) {
-                int sum = poly[i].coeff + poly[j].coeff;
-                poly[i].exp = poly[i].exp;  // Corrected index and assignment
-                poly[i].coeff = sum;        // Corrected index and assignment
-            }
+
+void polyAdd(Polynomial poly[], int starta, int finisha, int startb, int finishb, int *startc, int *finishc) {
+    *startc = finisha;  // Update startc to the end of the first polynomial
+    *finishc = *startc;
+
+    int i = starta, j = startb;
+
+    while (i < finisha && j < finishb) {
+        if (poly[i].exp == poly[j].exp) {
+            // Terms have the same exponent, add the coefficients
+            poly[*finishc].exp = poly[i].exp;
+            poly[*finishc].coeff = poly[i].coeff + poly[j].coeff;
+            (*finishc)++;
+            i++;
+            j++;
+        } else if (poly[i].exp > poly[j].exp) {
+            // Term in the first polynomial has a higher exponent
+            poly[*finishc].exp = poly[i].exp;
+            poly[*finishc].coeff = poly[i].coeff;
+            (*finishc)++;
+            i++;
+        } else {
+            // Term in the second polynomial has a higher exponent
+            poly[*finishc].exp = poly[j].exp;
+            poly[*finishc].coeff = poly[j].coeff;
+            (*finishc)++;
+            j++;
         }
     }
+
+    // Add any remaining terms from the first polynomial
+    while (i < finisha) {
+        poly[*finishc].exp = poly[i].exp;
+        poly[*finishc].coeff = poly[i].coeff;
+        (*finishc)++;
+        i++;
+    }
+
+    // Add any remaining terms from the second polynomial
+    while (j < finishb) {
+        poly[*finishc].exp = poly[j].exp;
+        poly[*finishc].coeff = poly[j].coeff;
+        (*finishc)++;
+        j++;
+    }
 }
+
+
 
 void polyEval(Polynomial poly[], int start, int finish, int x) {
     int val = 0;
@@ -143,7 +205,7 @@ void polyEval(Polynomial poly[], int start, int finish, int x) {
     printf("The final value is %d", val);
 }
 
-int main() {
+void main() {
     Polynomial poly[100];
     int n1, starta = 0, finisha = 0;
 
@@ -174,12 +236,13 @@ int main() {
 
     int startc, finishc;
     startc = finishb + 1;
-    finishc = startc + finisha - starta + finishb - startb;
-    polyAdd(poly, starta, finisha, startb, finishb, startc, finishc);
+    finishc = startc;  // Initialize finishc to startc
+
+    // Call polyAdd with correct arguments
+    polyAdd(poly, starta, finisha, startb, finishb, &startc, &finishc);
+
     printf("\nThe added polynomial is:\n");
     printPoly(poly, startc, finishc);
-
-    return 0;
 }
 
 
