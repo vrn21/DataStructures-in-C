@@ -52,6 +52,14 @@ void printMat(int mat[][100], int row, int col){
     }
 }
 
+
+void sparseAdd(int sparseA[][], int sparseB[][], int row, int col, int sparseSum[][]){
+	int x = sparseA[0][2];
+	int y = sparseB[0][2];
+	
+	
+}
+
 int main(){
     int row, col;
     printf("Enter your matrix details\n");
@@ -71,10 +79,19 @@ int main(){
     printf("The sparcity of the matrix is %f", sparcity);
     
     printf("Enter second matrix details");
-    
-    
+    printf("Both matrices must be of same size");
+    int matB[100][100],sparseB[100][3];
+    createMat(matB, row, col);
+    printMat(matB,row,col);
+    convertToSparseMatrix(matB, row, col, sparseB);
+    for (int i = 0; i <= sparseB[0][2]; i++) {
+        printf("%d %d %d\n", sparseB[i][0], sparseB[i][1], sparseB[i][2]);
+    }
     
     
     
     return 0;
 }
+
+
+
