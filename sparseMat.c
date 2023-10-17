@@ -53,10 +53,15 @@ void printMat(int mat[][100], int row, int col){
 }
 
 
-void sparseAdd(int sparseA[][], int sparseB[][], int row, int col, int sparseSum[][]){
+void sparseAdd(int sparseA[][], int sparseB[][], int sparseSum[][]){
 	int x = sparseA[0][2];
 	int y = sparseB[0][2];
-	
+	int k = 1;
+	for(int i =0; i<sparseA[0][0]; i++){
+		for(int j =0; j<sparseB[0][0]; j++){
+			
+		}
+	}
 	
 }
 
