@@ -244,5 +244,3 @@ void main() {
     printf("\nThe added polynomial is:\n");
     printPoly(poly, startc, finishc);
 }
-
-
