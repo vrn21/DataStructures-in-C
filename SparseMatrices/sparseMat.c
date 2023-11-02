@@ -46,9 +46,6 @@ void convertToSparseMatrix(int matrix[][100], int rows, int cols, int sparseMatr
     sparseMatrix[0][2] = k-1;
 }
 
-
-
-
 void sparseAdd(int sparseA[100][3], int sparseB[100][3], int sparseSum[100][3]){
 	sparseSum[0][0] = sparseA[0][0];
     sparseSum[0][1] = sparseA[0][1];
@@ -171,6 +168,3 @@ int main(){
     
     return 0;
 }
-
-
-
