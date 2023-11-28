@@ -41,7 +41,7 @@ struct node* deleteRear(struct node* head,struct node* rear){
 		ptr = ptr -> next;
 	}
 	rear = temp;
-	rear -> next == NULL;
+	rear -> next = NULL;
 	free(ptr);
 	return head;
 }
@@ -62,7 +62,72 @@ void main(){
 	struct node* rear = front;
 	int menu = 1;
 	int choice ;
-	while (menu = 1){
+	printf("Which type of Double ended Queue would you like to execute? \n 1. Input restricted \n 2.Output restricted \n 3. No restrictions");
+	int restriction;
+	scanf("%d",&restriction);
+	switch (restriction){
+	case 1:
+			while (menu = 1){
+		printf("MENU \n 1.Insertion at front  \n 3. Deletion at front \n 4. Deletion at rear  \n 5.Display  \n 6.Quit");
+		printf("\nEnter you choice");
+		scanf("%d",&choice);
+		switch(choice){
+			case 1:
+				front = insertFront(front,20);
+				displayQueue(front);
+				break;
+			case 2:
+				//rear = insertRear(rear,40);
+				//displayQueue(front);
+				break;
+			case 3:
+				front = deleteFront(front);
+				displayQueue(front);
+				break;
+			case 4:
+				rear = deleteRear(front,rear);
+				displayQueue(front);
+				break;
+			case 5 :
+				displayQueue(front);
+				break;
+			case 6:
+			default:  menu = 0; break;
+		}
+	}
+	break;
+	case 2:
+			while (menu = 1){
+		printf("MENU \n 1.Insertion at front \n 2.Insertion at rear \n 3. Deletion at front \n   \n 5.Display  \n 6.Quit");
+		printf("\nEnter you choice");
+		scanf("%d",&choice);
+		switch(choice){
+			case 1:
+				front = insertFront(front,20);
+				displayQueue(front);
+				break;
+			case 2:
+				rear = insertRear(rear,40);
+				displayQueue(front);
+				break;
+			case 3:
+				front = deleteFront(front);
+				displayQueue(front);
+				break;
+			case 4:
+				//rear = deleteRear(front,rear);
+				//displayQueue(front);
+				break;
+			case 5 :
+				displayQueue(front);
+				break;
+			case 6:
+			default:  menu = 0; break;
+		}
+	}
+	break;
+	case 3:
+			while (menu = 1){
 		printf("MENU \n 1.Insertion at front \n 2.Insertion at rear \n 3. Deletion at front \n 4. Deletion at rear  \n 5.Display  \n 6.Quit");
 		printf("\nEnter you choice");
 		scanf("%d",&choice);
@@ -90,5 +155,8 @@ void main(){
 			default:  menu = 0; break;
 		}
 	}
+	break;
+}
+
 
 }
